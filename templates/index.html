@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRM Ramapuram Student Bot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header>
+            <img src="/static/logo.png" alt="bot Logo" class="logo">
+            <h1>SRM Ramapuram Student Bot</h1>
+        </header>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Ask a question..." autofocus>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <div class="suggestions">
+        <h2>Sample Questions</h2>
+        <ul>
+            <li>How to contact SRM Ramapuram?</li>
+            <li>Where is SRM Ramapuram located?</li>
+            <li>What is the fee structure at SRM Ramapuram?</li>
+            <li>What courses are offered at SRM Ramapuram?</li>
+            <li>What is machine learning?</li>
+            <li>What is cloud computing?</li>
+        </ul>
+    </div>
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput) {
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML += `<p class="user-msg">${userInput}</p>`;
+                fetch('/get', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `msg=${userInput}`
+                }).then(response => response.text())
+                .then(answer => {
+                    chatBox.innerHTML += `<p class="bot-msg">${answer}</p>`;
+                    document.getElementById('user-input').value = '';
+                    chatBox.scrollTop = chatBox.scrollHeight;  // Scroll to the bottom
+                });
+            }
+        }
+    </script>
+</body>
+</html>
