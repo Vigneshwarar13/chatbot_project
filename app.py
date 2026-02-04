@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
 
 # Predefined questions and answers for college information
 college_info = {
