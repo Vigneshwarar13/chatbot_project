@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-
+app = Flask(__name__)
 # Predefined questions and answers for college information
 college_info = {
     "How to contact SRM Ramapuram?": "You can contact SRM Ramapuram at their official contact page: https://srmrmp.edu.in/contact",
